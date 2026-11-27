@@ -2,5 +2,87 @@
  "cash": 20.0,
  "position": null,
  "trades": [],
- "last_summary": "2026-11-27"
+ "last_summary": "2026-11-27",
+ "last_scan": {
+  "time": 1795810449,
+  "coins": [
+   {
+    "symbol": "BTC-USD",
+    "price": 59689.61,
+    "rsi": 38.2,
+    "ch24": -1.64,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "ETH-USD",
+    "price": 1668.89,
+    "rsi": 36.7,
+    "ch24": -1.96,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "SOL-USD",
+    "price": 71.9,
+    "rsi": 49.5,
+    "ch24": 0.98,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "XRP-USD",
+    "price": 0.9474,
+    "rsi": 45.2,
+    "ch24": -0.43,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "ADA-USD",
+    "price": 0.14907,
+    "rsi": 46.6,
+    "ch24": -1.02,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "DOGE-USD",
+    "price": 0.05767,
+    "rsi": 52.1,
+    "ch24": 1.37,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "LINK-USD",
+    "price": 9.367,
+    "rsi": 49.1,
+    "ch24": 0.72,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "AVAX-USD",
+    "price": 6.635,
+    "rsi": 46.9,
+    "ch24": -0.14,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "LTC-USD",
+    "price": 44.028,
+    "rsi": 51.4,
+    "ch24": 0.38,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   },
+   {
+    "symbol": "DOT-USD",
+    "price": 0.6674,
+    "rsi": 44.8,
+    "ch24": -0.8,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
+   }
+  ]
+ },
+ "start_cash": 20.0,
+ "history": [
+  [
+   1795810449,
+   20.0
+  ]
+ ]
 }
