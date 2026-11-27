@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bot Paneli</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#14181f;--mu:#6b7380;--bd:#e3e6eb;--g:#12805c;--r:#c8372d;--a:#2457d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#171b22;--tx:#e8ebf0;--mu:#8a93a2;--bd:#262c36;--g:#3ccf91;--r:#ff6b60;--a:#7aa2ff}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 -apple-system,system-ui,sans-serif;padding:14px}
+h1{font-size:20px;margin:0 0 2px}h2{font-size:14px;margin:0 0 8px;color:var(--mu);font-weight:600}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.k{font-size:12px;color:var(--mu)}.v{font-size:20px;font-weight:700}
+.g{color:var(--g)}.r{color:var(--r)}.mu{color:var(--mu)}.s{font-size:13px}
+textarea{width:100%;height:90px;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px;font:12px monospace}
+button{background:var(--a);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-size:14px;margin-top:6px}
+.sc{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--bd);white-space:nowrap}
+.bar{height:8px;border-radius:4px;background:var(--bd);position:relative;margin:8px 0}.bar i{position:absolute;top:-3px;width:3px;height:14px;background:var(--a)}
+.tag{font-size:11px;padding:2px 6px;border-radius:6px;background:var(--bd)}.sig{background:var(--g);color:#fff}
+ul{margin:0;padding-left:18px}li{margin-bottom:4px}
+</style></head><body>
+<h1>Bot Paneli</h1><div class="mu s" id="upd">Veri yok</div>
+<div class="card" id="load" hidden><h2>Veri çekilemedi</h2>
+<div class="s mu">Otomatik çekme çalışmadı. İstersen state.json içeriğini elle yapıştırabilirsin.</div>
+<textarea id="ta" placeholder="state.json içeriği"></textarea><button onclick="go()">Göster</button><div id="err" class="r s"></div></div>
+<div id="app" hidden>
+<div class="card"><div class="grid">
+<div><div class="k">Toplam değer</div><div class="v" id="eq"></div></div>
+<div><div class="k">Kâr / zarar</div><div class="v" id="pl"></div></div>
+<div><div class="k">İşlem sayısı</div><div class="v" id="n"></div></div>
+<div><div class="k">Kazanma oranı</div><div class="v" id="wr"></div></div></div>
+<svg id="sp" viewBox="0 0 300 60" width="100%" height="60" preserveAspectRatio="none" style="margin-top:8px"></svg></div>
+<div class="card"><h2>Açık pozisyon</h2><div id="pos"></div></div>
+<div class="card"><h2>Son taramada bot ne gördü?</h2><div class="sc"><table id="tb"></table></div></div>
+<div class="card"><h2>Bot nasıl karar veriyor?</h2><ul class="s">
+<li>Her 15 dakikada uyanır, 10 coinin saatlik mumlarını çeker.</li>
+<li>RSI 35’in altındaysa (aşırı satım) ve son kapanan mum bir öncekinden yüksekse (toparlanma) o coin “SİNYAL” olur.</li>
+<li>Birden fazla sinyal varsa RSI’ı en düşük ve hacmi en yüksek olanı seçer.</li>
+<li>Stop: ATR’nin 1,5 katı (en az %1,5) aşağı. Hedef: stop mesafesinin 2 katı yukarı.</li>
+<li>Aynı anda tek pozisyon. 24 saat dolarsa kapatır. Her işlemde %0,5 komisyon ve %0,1 kayma düşer.</li></ul></div>
+<div class="card"><h2>Son işlemler</h2><div id="tr" class="s"></div></div>
+<div class="card"><h2>Olay günlüğü</h2><div id="lg" class="s"></div></div>
+<button onclick="again()" style="background:var(--mu)">Veriyi değiştir</button></div>
+<script>
+var $=function(i){return document.getElementById(i)};
+function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function fm(n,d){return Number(n).toFixed(d==null?2:d)}
+function ts(t){return new Date(t*1000).toLocaleString("tr-TR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}
+function cl(n){return n>=0?"g":"r"}
+function again(){$("app").hidden=true;$("load").hidden=false}
+function go(){var raw=$("ta").value.trim();try{var s=JSON.parse(raw);try{localStorage.setItem("st",raw)}catch(e){}render(s);$("err").textContent=""}catch(e){$("err").textContent="Geçerli bir state.json değil. Dosyanın tamamını kopyaladığından emin ol."}}
+function render(s){
+var sc=s.last_scan||{coins:[],time:0},px={};sc.coins.forEach(function(c){if(c.price)px[c.symbol]=c.price});
+var p=s.position,start=s.start_cash||20,eq=s.cash+(p?p.qty*(px[p.symbol]||p.entry):0),pl=eq-start;
+var t=s.trades||[],w=t.filter(function(x){return x.pnl>0}).length;
+$("eq").textContent="$"+fm(eq);$("pl").textContent=(pl>=0?"+":"")+fm(pl)+"$";$("pl").className="v "+cl(pl);
+$("n").textContent=t.length;$("wr").textContent=t.length?Math.round(w/t.length*100)+"%":"-";
+$("upd").textContent=sc.time?"Son tarama: "+ts(sc.time):"Henüz tarama yok";
+var h=(s.history||[]).map(function(x){return x[1]});
+if(h.length>1){var mn=Math.min.apply(0,h),mx=Math.max.apply(0,h),rg=(mx-mn)||1;
+var pts=h.map(function(v,i){return(i/(h.length-1)*300).toFixed(1)+","+(55-(v-mn)/rg*50).toFixed(1)}).join(" ");
+$("sp").innerHTML='<polyline points="'+pts+'" fill="none" stroke="var(--a)" stroke-width="2" vector-effect="non-scaling-stroke"/>'}else{$("sp").innerHTML=""}
+if(p){var cur=px[p.symbol]||p.entry,pc=(cur/p.entry-1)*100,span=p.target-p.stop,pos=Math.max(0,Math.min(1,(cur-p.stop)/span))*100;
+$("pos").innerHTML='<b>'+esc(p.symbol)+'</b> <span class="'+cl(pc)+'">'+(pc>=0?"+":"")+fm(pc)+'%</span>'+
+'<div class="s mu">Giriş '+fm(p.entry,4)+' · Şimdi '+fm(cur,4)+'</div>'+
+'<div class="bar"><i style="left:'+pos+'%"></i></div><div class="s" style="display:flex;justify-content:space-between"><span class="r">Stop '+fm(p.stop,4)+'</span><span class="g">Hedef '+fm(p.target,4)+'</span></div>'+
+'<div class="s mu">Açılış: '+ts(p.time)+'</div>'}else{$("pos").innerHTML='<span class="mu">Şu an pozisyon yok, sinyal bekliyor. Kasa: $'+fm(s.cash)+'</span>'}
+var tb='<tr><th>Coin</th><th>Fiyat</th><th>24s</th><th>RSI</th><th>Durum</th></tr>';
+sc.coins.forEach(function(c){tb+='<tr><td>'+esc(c.symbol.replace("-USD",""))+'</td><td>'+(c.price?fm(c.price,c.price<10?4:2):"-")+'</td><td class="'+(c.ch24>=0?"g":"r")+'">'+(c.ch24==null?"-":fm(c.ch24,1)+"%")+'</td><td>'+(c.rsi==null?"-":c.rsi)+'</td><td><span class="tag '+(c.status==="SİNYAL"?"sig":"")+'">'+esc(c.status)+'</span></td></tr>'});
+$("tb").innerHTML=tb;
+$("tr").innerHTML=t.length?t.slice(-8).reverse().map(function(x){return'<div>'+ts(x.time)+' · '+esc(x.symbol)+' · '+esc(x.reason)+' · <b class="'+cl(x.pnl)+'">'+(x.pnl>=0?"+":"")+fm(x.pnl)+'$</b></div>'}).join(""):'<span class="mu">Henüz işlem yok.</span>';
+$("lg").innerHTML=(s.log||[]).length?s.log.slice(-10).reverse().map(function(x){return'<div><span class="mu">'+ts(x[0])+'</span> '+esc(x[1])+'</div>'}).join(""):'<span class="mu">Henüz olay yok.</span>';
+$("load").hidden=true;$("app").hidden=false}
+var RAW="https://raw.githubusercontent.com/ahmetcagribiyikli-blip/financebot/main/state.json";
+function ld(u){return fetch(u+"?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()})}
+function pull(){ld(RAW).catch(function(){return ld("state.json")}).then(function(s){render(s);$("err").textContent=""}).catch(function(){if($("app").hidden)$("load").hidden=false;$("err").textContent="Veri çekilemedi. Depo Public mi, state.json var mı?"})}
+pull();setInterval(pull,60000);
+</script></body></html>
