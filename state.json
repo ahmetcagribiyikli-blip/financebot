@@ -4,76 +4,76 @@
  "trades": [],
  "last_summary": "2026-11-27",
  "last_scan": {
-  "time": 1795811830,
+  "time": 1795812677,
   "coins": [
    {
     "symbol": "BTC-USD",
-    "price": 59734.75,
+    "price": 59727.41,
     "rsi": 38.2,
-    "ch24": -1.57,
+    "ch24": -1.58,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "ETH-USD",
-    "price": 1665.88,
+    "price": 1665.32,
     "rsi": 36.9,
-    "ch24": -2.14,
+    "ch24": -2.17,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "SOL-USD",
-    "price": 72.06,
+    "price": 71.95,
     "rsi": 49.5,
-    "ch24": 1.21,
+    "ch24": 1.05,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "XRP-USD",
-    "price": 0.949,
+    "price": 0.9486,
     "rsi": 45.2,
-    "ch24": -0.26,
+    "ch24": -0.3,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "ADA-USD",
-    "price": 0.14925,
+    "price": 0.149,
     "rsi": 46.6,
-    "ch24": -0.9,
+    "ch24": -1.07,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "DOGE-USD",
-    "price": 0.05773,
+    "price": 0.05765,
     "rsi": 52.1,
-    "ch24": 1.48,
+    "ch24": 1.34,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "LINK-USD",
-    "price": 9.382,
+    "price": 9.381,
     "rsi": 49.1,
-    "ch24": 0.88,
+    "ch24": 0.87,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "AVAX-USD",
-    "price": 6.647,
-    "rsi": 47.0,
-    "ch24": 0.05,
+    "price": 6.64,
+    "rsi": 46.9,
+    "ch24": -0.06,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "LTC-USD",
-    "price": 44.137,
+    "price": 44.162,
     "rsi": 51.4,
-    "ch24": 0.62,
+    "ch24": 0.68,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "DOT-USD",
-    "price": 0.6686,
+    "price": 0.6678,
     "rsi": 44.8,
-    "ch24": -0.62,
+    "ch24": -0.74,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    }
   ]
@@ -90,6 +90,10 @@
   ],
   [
    1795811830,
+   20.0
+  ],
+  [
+   1795812677,
    20.0
   ]
  ]
