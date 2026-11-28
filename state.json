@@ -4,77 +4,77 @@
  "trades": [],
  "last_summary": "2026-11-28",
  "last_scan": {
-  "time": 1795848103,
+  "time": 1795852684,
   "coins": [
    {
     "symbol": "BTC-USD",
-    "price": 59826.27,
-    "rsi": 39.0,
-    "ch24": -2.91,
+    "price": 59764.73,
+    "rsi": 39.4,
+    "ch24": -2.95,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "ETH-USD",
-    "price": 1658.72,
-    "rsi": 35.2,
-    "ch24": -4.22,
+    "price": 1657.16,
+    "rsi": 36.1,
+    "ch24": -4.37,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "SOL-USD",
-    "price": 71.45,
-    "rsi": 40.9,
-    "ch24": -2.06,
+    "price": 71.19,
+    "rsi": 44.0,
+    "ch24": -2.73,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "XRP-USD",
-    "price": 0.9476,
-    "rsi": 42.7,
-    "ch24": -2.44,
+    "price": 0.9443,
+    "rsi": 42.3,
+    "ch24": -3.4,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "ADA-USD",
-    "price": 0.14626,
-    "rsi": 33.6,
-    "ch24": -4.24,
-    "status": "RSI d\u00fc\u015f\u00fck ama toparlanma yok"
+    "price": 0.14636,
+    "rsi": 36.5,
+    "ch24": -4.28,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "DOGE-USD",
-    "price": 0.05698,
-    "rsi": 39.9,
-    "ch24": -1.78,
+    "price": 0.05694,
+    "rsi": 42.6,
+    "ch24": -2.0,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "LINK-USD",
-    "price": 9.163,
-    "rsi": 36.4,
-    "ch24": -4.33,
+    "price": 9.173,
+    "rsi": 35.6,
+    "ch24": -4.23,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "AVAX-USD",
-    "price": 6.542,
-    "rsi": 34.9,
-    "ch24": -3.1,
-    "status": "RSI d\u00fc\u015f\u00fck ama toparlanma yok"
+    "price": 6.529,
+    "rsi": 36.6,
+    "ch24": -3.19,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "LTC-USD",
-    "price": 44.348,
-    "rsi": 49.1,
-    "ch24": 0.26,
+    "price": 44.104,
+    "rsi": 49.9,
+    "ch24": -0.92,
     "status": "RSI y\u00fcksek, al\u0131m yok"
    },
    {
     "symbol": "DOT-USD",
-    "price": 0.6558,
-    "rsi": 31.9,
-    "ch24": -4.75,
-    "status": "RSI d\u00fc\u015f\u00fck ama toparlanma yok"
+    "price": 0.6551,
+    "rsi": 37.0,
+    "ch24": -4.18,
+    "status": "RSI y\u00fcksek, al\u0131m yok"
    }
   ]
  },
@@ -130,6 +130,10 @@
   ],
   [
    1795848103,
+   20.0
+  ],
+  [
+   1795852684,
    20.0
   ]
  ]
